@@ -303,7 +303,7 @@ def rankAllTimePlayer(PTS, AST, STL, BLK, Championships, new_Championship_Diffic
     final_table_z["Rankings"] = (PTS * final_table_z["PTS"] 
     + AST * final_table_z["AST"] 
     + STL * final_table_z["STL"] 
-    + BLK * final_table_z["BLK"]
+    + BLK * final_table_z["BLK"] 
     + Championships * final_table_z["Championships"] 
     + new_Championship_Difficulty * final_table_z["new Championship Difficulty"]
     +  MVP * final_table_z["MVP"]
