@@ -45,7 +45,7 @@ top_75['PTS/G'] = top_75['PTS'] / top_75['G']
 top_75['AST/G'] = top_75['AST'] / top_75['G']
 top_75['TRB/G'] = top_75['TRB'] / top_75['G']
 top_75['STL/G'] = top_75['STL'] / top_75['G']
-top_75['BLK/G'] = top_75['BLK'] / top_75['G']
+top_75['BLK/G'] = top_75['BLK'] / top_75['G']   
 
 #Calculate z-scores
 
@@ -260,35 +260,6 @@ final_table_robust.head(50)
 
 final_table_z.sort_values('new Championship Difficulty', ascending = False).head(10)
 
-def rankAllTimePlayer(PTS, AST, STL, BLK, Championships, new_Championship_Difficulty, MVP, DPOY, FMVP, All_NBA):
-    final_table_z["Rankings"] = (PTS * final_table_z["PTS"] 
-    + AST * final_table_z["AST"] 
-    + STL * final_table_z["STL"] 
-    + BLK * final_table_z["BLK"]
-    + Championships * final_table_z["Championships"] 
-    + new_Championship_Difficulty * final_table_z["new Championship Difficulty"]
-    +  MVP * final_table_z["MVP"]
-    +  DPOY * final_table_z["DPOY"]
-    +  FMVP * final_table_z["FMVP"]
-    +  All_NBA * final_table_z["All NBA Teams"])
-    
-    return final_table_z.sort_values("Rankings", ascending = False) 
-
-final_table_z.sort_values("Championship Difficulty").head(50)
-
-top_75_names = ["Michael Jordan", "LeBron James", "Kareem Abdul-Jabbar", "Magic Johnson", "Wilt Chamberlain",
-                "Bill Russell", "Larry Bird", "Tim Duncan", "Oscar Robertson", "Kobe Bryant", "Shaquille O'Neal",
-                "Kevin Durant", "Hakeem Olajuwon", "Julius Erving", "Moses Malone", "Stephen Curry", "Dirk Nowitzki",
-                "Giannis Antetokounmpo", "Jerry West", "Elgin Baylor", "Kevin Garnett", "Charles Barkley", "Karl Malone",
-                "John Stockton", "David Robinson", "John Havlicek", "Isiah Thomas", "George Mikan", "Chris Paul",
-                "Dwyane Wade", "Allen Iverson", "Scottie Pippen", "Kawhi Leonard", "Bob Cousy", "Bob Pettit",
-                "Dominique Wilkins", "Steve Nash", "Rick Barry", "Kevin McHale", "Patrick Ewing", "Walt Frazier",
-                "Gary Payton", "Jason Kidd", "Bill Walton", "Bob McAdoo", "Jerry Lucas", "Ray Allen", "Wes Unseld",
-                "Nate Thurmond", "James Harden", "Reggie Miller", "George Gervin", "Clyde Drexler", "Pete Maravich",
-                "Earl Monroe", "James Worthy", "Willis Reed", "Elvin Hayes", "Nate Archibald", "Sam Jones",
-                "Dave Cowens", "Paul Pierce", "Robert Parish", "Hal Greer", "Lenny Wilkens", "Paul Arizin",
-                "Dennis Rodman", "Russell Westbrook", "Carmelo Anthony", "Dolph Schayes", "Anthony Davis",
-                "Billy Cunningham", "Dave DeBusschere", "Dave Bing", "Damian Lillard", "Bill Sharman"]
 
 # Double the size of the list by duplicating every player with a "*" added to the end of their name
 doubled_list = [name + '*' for name in top_75_names]
@@ -297,21 +268,30 @@ doubled_list = [name + '*' for name in top_75_names]
 full_list = top_75_names + doubled_list
 
 # example below 
-rankAllTimePlayer(15, 15, 5, 5, 25, 30, 8, 1, 15, 10)
+final_table_z = pd.read_csv("final_andy - real.csv")
 
-def rankAllTimePlayer(PTS, AST, STL, BLK, Championships, new_Championship_Difficulty, MVP, DPOY, FMVP, All_NBA):
-    final_table_z["Rankings"] = (PTS * final_table_z["PTS"] 
+def rankAllTimePlayer(PTS, AST, TRB, Championships, new_Championship_Difficulty, MVP, DPOY, FMVP, All_NBA):
+    final_table_z = pd.read_csv("final_andy - real.csv")
+
+    final_table_z["Rankings"] = (
+    PTS * final_table_z["PTS"] 
     + AST * final_table_z["AST"] 
-    + STL * final_table_z["STL"] 
-    + BLK * final_table_z["BLK"] 
+    + TRB * final_table_z["TRB"]
     + Championships * final_table_z["Championships"] 
     + new_Championship_Difficulty * final_table_z["new Championship Difficulty"]
     +  MVP * final_table_z["MVP"]
     +  DPOY * final_table_z["DPOY"]
     +  FMVP * final_table_z["FMVP"]
-    +  All_NBA * final_table_z["All NBA Teams"])
+    +  All_NBA * final_table_z["All NBA Teams"]
+    )
     
-    return final_table_z.sort_values("Rankings", ascending = False).head(10)
+    # Get the top 10 ranked players' data
+    top_players_data = final_table_z.sort_values("Rankings", ascending=False).head(10)
+
+    # Convert the DataFrame to a list of dictionaries
+    ranked_players_data = top_players_data.to_dict(orient="records")
+
+    return ranked_players_data
 
 
 CORS(app)
@@ -323,14 +303,16 @@ def rank_players():
         # Get the values array from the JSON request
         values_array = request.get_json()['values']
         print(values_array)
-        results = rankAllTimePlayer(*values_array)
+        ranked_players = rankAllTimePlayer(*values_array)
         # Ranking function here
         
-        # Convert the DataFrame to a list of dictionaries
-        ranked_players_data = results.to_dict(orient="records")
+         # Fetch the 'Color' and 'Emoji' columns from the CSV for each player
+        for player in ranked_players:
+            player_info = final_table_z.loc[final_table_z['Player'] == player['Player']].iloc[0]
+            player['Color'] = player_info['Color']
+            player['Emoji'] = player_info['Emoji']
 
-        # Return the ranked players' data as JSON response
-        return jsonify(ranked_players_data)
+        return jsonify(ranked_players)
     except Exception as e:
         return jsonify({"error": str(e)})
 
