@@ -268,7 +268,7 @@ doubled_list = [name + '*' for name in top_75_names]
 full_list = top_75_names + doubled_list
 
 # example below 
-final_table_z = pd.read_csv("final_andy - real.csv")
+final_table_z = pd.read_csv("final_andy_real.csv")
 
 def rankAllTimePlayer(PTS, AST, TRB, Championships, new_Championship_Difficulty, MVP, DPOY, FMVP, All_NBA):
     final_table_z = pd.read_csv("final_andy - real.csv")
