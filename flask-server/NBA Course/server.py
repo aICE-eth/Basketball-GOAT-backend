@@ -316,7 +316,9 @@ def rank_players():
     except Exception as e:
         return jsonify({"error": str(e)})
 
+import os
+
 # Run the Flask app if executed as the main script
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ['PORT']), debug=True)
 
