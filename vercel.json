@@ -4,6 +4,6 @@
       { "src": "flask-server/NBA Course/server.py", "use": "@vercel/python" }
     ],
     "routes": [
-      { "src": "/(.*)", "dest": "/app.py" }
+      { "src": "/(.*)", "dest": "flask-server/NBA Course/server.py" }
     ]
   }
