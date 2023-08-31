@@ -271,7 +271,7 @@ full_list = top_75_names + doubled_list
 final_table_z = pd.read_csv("final_andy_real.csv")
 
 def rankAllTimePlayer(PTS, AST, TRB, Championships, new_Championship_Difficulty, MVP, DPOY, FMVP, All_NBA):
-    final_table_z = pd.read_csv("final_andy - real.csv")
+    final_table_z = pd.read_csv("final_andy_real.csv")
 
     final_table_z["Rankings"] = (
     PTS * final_table_z["PTS"] 
