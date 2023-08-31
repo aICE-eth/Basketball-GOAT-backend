@@ -5,269 +5,269 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
-# #Data Processing
-# players = pd.read_csv("Seasons_Stats.csv")
-# players18 = pd.read_csv("17-18.csv")
-# players19 = pd.read_csv("18-19.csv")
-# players20 = pd.read_csv("19-20.csv")
-# players21 = pd.read_csv("20-21.csv")
-# players22 = pd.read_csv("21-22.csv")
-# players23 = pd.read_csv("22-23.csv")
-# all_time_stats =  pd.concat([players, players18, players19, players20, players21, players22,players23], axis = 0)
-# all_time_stats = all_time_stats.drop('Unnamed: 0', axis = 1)
+#Data Processing
+players = pd.read_csv("Seasons_Stats.csv")
+players18 = pd.read_csv("17-18.csv")
+players19 = pd.read_csv("18-19.csv")
+players20 = pd.read_csv("19-20.csv")
+players21 = pd.read_csv("20-21.csv")
+players22 = pd.read_csv("21-22.csv")
+players23 = pd.read_csv("22-23.csv")
+all_time_stats =  pd.concat([players, players18, players19, players20, players21, players22,players23], axis = 0)
+all_time_stats = all_time_stats.drop('Unnamed: 0', axis = 1)
 
-# #Replace null values with 0s
-# all_time_stats.fillna(0, inplace=True)
+#Replace null values with 0s
+all_time_stats.fillna(0, inplace=True)
 
-# top_75_names = ['Michael Jordan', 'LeBron James', 'Kareem Abdul-Jabbar', 'Magic Johnson', 'Wilt Chamberlain', 'Bill Russell', 'Larry Bird', 'Tim Duncan', 'Oscar Robertson', 'Kobe Bryant', "Shaquille O'Neal", 'Kevin Durant', 'Hakeem Olajuwon', 'Julius Erving', 'Moses Malone', 'Stephen Curry', 'Dirk Nowitzki', 'Giannis Antetokounmpo', 'Jerry West', 'Elgin Baylor', 'Kevin Garnett', 'Charles Barkley', 'Karl Malone', 'John Stockton', 'David Robinson', 'John Havlicek', 'Isiah Thomas', 'George Mikan', 'Chris Paul', 'Dwyane Wade', 'Allen Iverson', 'Scottie Pippen', 'Kawhi Leonard', 'Bob Cousy', 'Bob Pettit', 'Dominique Wilkins', 'Steve Nash', 'Rick Barry', 'Kevin McHale', 'Patrick Ewing', 'Walt Frazier', 'Jason Kidd', 'Bill Walton', 'Bob McAdoo', 'Jerry Lucas', 'Ray Allen', 'Wes Unseld', 'Nate Thurmond', 'James Harden', 'Reggie Miller', 'George Gervin', 'Clyde Drexler', 'Pete Maravich', 'Earl Monroe', 'James Worthy', 'Willis Reed', 'Elvin Hayes', 'Nate Archibald', 'Sam Jones', 'Dave Cowens', 'Paul Pierce', 'Robert Parish', 'Hal Greer', 'Lenny Wilkens', 'Paul Arizin', 'Dennis Rodman', 'Russell Westbrook', 'Carmelo Anthony', 'Dolph Schayes', 'Anthony Davis', 'Billy Cunningham', 'Dave DeBusschere', 'Dave Bing', 'Damian Lillard', 'Bill Sharman', 'Michael Jordan*', 'LeBron James*', 'Kareem Abdul-Jabbar*', 'Magic Johnson*', 'Wilt Chamberlain*', 'Bill Russell*', 'Larry Bird*', 'Tim Duncan*', 'Oscar Robertson*', 'Kobe Bryant*', "Shaquille O'Neal*", 'Kevin Durant*', 'Hakeem Olajuwon*', 'Julius Erving*', 'Moses Malone*', 'Stephen Curry*', 'Dirk Nowitzki*', 'Giannis Antetokounmpo*', 'Jerry West*', 'Elgin Baylor*', 'Kevin Garnett*', 'Charles Barkley*', 'Karl Malone*', 'John Stockton*', 'David Robinson*', 'John Havlicek*', 'Isiah Thomas*', 'George Mikan*', 'Chris Paul*', 'Dwyane Wade*', 'Allen Iverson*', 'Scottie Pippen*', 'Kawhi Leonard*', 'Bob Cousy*', 'Bob Pettit*', 'Dominique Wilkins*', 'Steve Nash*', 'Rick Barry*', 'Kevin McHale*', 'Patrick Ewing*', 'Walt Frazier*', 'Gary Payton*', 'Jason Kidd*', 'Bill Walton*', 'Bob McAdoo*', 'Jerry Lucas*', 'Ray Allen*', 'Wes Unseld*', 'Nate Thurmond*', 'James Harden*', 'Reggie Miller*', 'George Gervin*', 'Clyde Drexler*', 'Pete Maravich*', 'Earl Monroe*', 'James Worthy*', 'Willis Reed*', 'Elvin Hayes*', 'Nate Archibald*', 'Sam Jones*', 'Dave Cowens*', 'Paul Pierce*', 'Robert Parish*', 'Hal Greer*', 'Lenny Wilkens*', 'Paul Arizin*', 'Dennis Rodman*', 'Russell Westbrook*', 'Carmelo Anthony*', 'Dolph Schayes*', 'Anthony Davis*', 'Billy Cunningham*', 'Dave DeBusschere*', 'Dave Bing*', 'Damian Lillard*', 'Bill Sharman*']
+top_75_names = ['Michael Jordan', 'LeBron James', 'Kareem Abdul-Jabbar', 'Magic Johnson', 'Wilt Chamberlain', 'Bill Russell', 'Larry Bird', 'Tim Duncan', 'Oscar Robertson', 'Kobe Bryant', "Shaquille O'Neal", 'Kevin Durant', 'Hakeem Olajuwon', 'Julius Erving', 'Moses Malone', 'Stephen Curry', 'Dirk Nowitzki', 'Giannis Antetokounmpo', 'Jerry West', 'Elgin Baylor', 'Kevin Garnett', 'Charles Barkley', 'Karl Malone', 'John Stockton', 'David Robinson', 'John Havlicek', 'Isiah Thomas', 'George Mikan', 'Chris Paul', 'Dwyane Wade', 'Allen Iverson', 'Scottie Pippen', 'Kawhi Leonard', 'Bob Cousy', 'Bob Pettit', 'Dominique Wilkins', 'Steve Nash', 'Rick Barry', 'Kevin McHale', 'Patrick Ewing', 'Walt Frazier', 'Jason Kidd', 'Bill Walton', 'Bob McAdoo', 'Jerry Lucas', 'Ray Allen', 'Wes Unseld', 'Nate Thurmond', 'James Harden', 'Reggie Miller', 'George Gervin', 'Clyde Drexler', 'Pete Maravich', 'Earl Monroe', 'James Worthy', 'Willis Reed', 'Elvin Hayes', 'Nate Archibald', 'Sam Jones', 'Dave Cowens', 'Paul Pierce', 'Robert Parish', 'Hal Greer', 'Lenny Wilkens', 'Paul Arizin', 'Dennis Rodman', 'Russell Westbrook', 'Carmelo Anthony', 'Dolph Schayes', 'Anthony Davis', 'Billy Cunningham', 'Dave DeBusschere', 'Dave Bing', 'Damian Lillard', 'Bill Sharman', 'Michael Jordan*', 'LeBron James*', 'Kareem Abdul-Jabbar*', 'Magic Johnson*', 'Wilt Chamberlain*', 'Bill Russell*', 'Larry Bird*', 'Tim Duncan*', 'Oscar Robertson*', 'Kobe Bryant*', "Shaquille O'Neal*", 'Kevin Durant*', 'Hakeem Olajuwon*', 'Julius Erving*', 'Moses Malone*', 'Stephen Curry*', 'Dirk Nowitzki*', 'Giannis Antetokounmpo*', 'Jerry West*', 'Elgin Baylor*', 'Kevin Garnett*', 'Charles Barkley*', 'Karl Malone*', 'John Stockton*', 'David Robinson*', 'John Havlicek*', 'Isiah Thomas*', 'George Mikan*', 'Chris Paul*', 'Dwyane Wade*', 'Allen Iverson*', 'Scottie Pippen*', 'Kawhi Leonard*', 'Bob Cousy*', 'Bob Pettit*', 'Dominique Wilkins*', 'Steve Nash*', 'Rick Barry*', 'Kevin McHale*', 'Patrick Ewing*', 'Walt Frazier*', 'Gary Payton*', 'Jason Kidd*', 'Bill Walton*', 'Bob McAdoo*', 'Jerry Lucas*', 'Ray Allen*', 'Wes Unseld*', 'Nate Thurmond*', 'James Harden*', 'Reggie Miller*', 'George Gervin*', 'Clyde Drexler*', 'Pete Maravich*', 'Earl Monroe*', 'James Worthy*', 'Willis Reed*', 'Elvin Hayes*', 'Nate Archibald*', 'Sam Jones*', 'Dave Cowens*', 'Paul Pierce*', 'Robert Parish*', 'Hal Greer*', 'Lenny Wilkens*', 'Paul Arizin*', 'Dennis Rodman*', 'Russell Westbrook*', 'Carmelo Anthony*', 'Dolph Schayes*', 'Anthony Davis*', 'Billy Cunningham*', 'Dave DeBusschere*', 'Dave Bing*', 'Damian Lillard*', 'Bill Sharman*']
 
-# #Create a list of the top 75 players (really 76 cuz idk why)
-# top_75 = all_time_stats[all_time_stats['Player'].isin(top_75_names)]
+#Create a list of the top 75 players (really 76 cuz idk why)
+top_75 = all_time_stats[all_time_stats['Player'].isin(top_75_names)]
 
-# #cut down to the top 75 list
-# top_75_raw = all_time_stats[all_time_stats['Player'].isin(top_75_names)]
+#cut down to the top 75 list
+top_75_raw = all_time_stats[all_time_stats['Player'].isin(top_75_names)]
 
-# #Convert to int
-# top_75_raw["Year"] = top_75["Year"].astype(int)
+#Convert to int
+top_75_raw["Year"] = top_75["Year"].astype(int)
 
-# #Select and aggregate by desired stats
-# top_75 = top_75_raw.groupby(['Player']).agg({
-#     'G' : 'sum',
-#     'PTS': 'sum',
-#     'AST': 'sum',
-#     'TRB': 'sum',
-#     'STL': 'sum',
-#     'BLK': 'sum'
-# }).reset_index()
+#Select and aggregate by desired stats
+top_75 = top_75_raw.groupby(['Player']).agg({
+    'G' : 'sum',
+    'PTS': 'sum',
+    'AST': 'sum',
+    'TRB': 'sum',
+    'STL': 'sum',
+    'BLK': 'sum'
+}).reset_index()
 
-# # Get Averages
-# top_75['PTS/G'] = top_75['PTS'] / top_75['G']
-# top_75['AST/G'] = top_75['AST'] / top_75['G']
-# top_75['TRB/G'] = top_75['TRB'] / top_75['G']
-# top_75['STL/G'] = top_75['STL'] / top_75['G']
-# top_75['BLK/G'] = top_75['BLK'] / top_75['G']   
+# Get Averages
+top_75['PTS/G'] = top_75['PTS'] / top_75['G']
+top_75['AST/G'] = top_75['AST'] / top_75['G']
+top_75['TRB/G'] = top_75['TRB'] / top_75['G']
+top_75['STL/G'] = top_75['STL'] / top_75['G']
+top_75['BLK/G'] = top_75['BLK'] / top_75['G']   
 
-# #Calculate z-scores
+#Calculate z-scores
 
-# # Define the columns to calculate z-scores
-# cols = ['PTS', 'AST', 'TRB', 'STL', 'BLK', 'PTS/G', 'AST/G', 'TRB/G', 'STL/G', 'BLK/G']
+# Define the columns to calculate z-scores
+cols = ['PTS', 'AST', 'TRB', 'STL', 'BLK', 'PTS/G', 'AST/G', 'TRB/G', 'STL/G', 'BLK/G']
 
-# # Calculate the z-scores
-# top_75_zscore = top_75[cols].apply(zscore)
+# Calculate the z-scores
+top_75_zscore = top_75[cols].apply(zscore)
 
-# # Add back the 'Player' column
-# top_75_zscore['Player'] = top_75['Player']
+# Add back the 'Player' column
+top_75_zscore['Player'] = top_75['Player']
 
-# # Reorder the columns
-# top_75_zscore = top_75_zscore[['Player'] + cols]
+# Reorder the columns
+top_75_zscore = top_75_zscore[['Player'] + cols]
 
-# pd.read_csv("awards.csv")
-# pd.read_csv("allnbateams.csv")
-# championships = pd.read_csv("championships.csv")
+pd.read_csv("awards.csv")
+pd.read_csv("allnbateams.csv")
+championships = pd.read_csv("championships.csv")
 
-# team_abbreviations = {
-#     'Atlanta Hawks': 'ATL',
-#     'Boston Celtics': 'BOS',
-#     'Brooklyn Nets': 'BKN',
-#     'Charlotte Hornets': 'CHA',
-#     'Chicago Bulls': 'CHI',
-#     'Cleveland Cavaliers': 'CLE',
-#     'Dallas Mavericks': 'DAL',
-#     'Denver Nuggets': 'DEN',
-#     'Detroit Pistons': 'DET',
-#     'Golden State Warriors': 'GSW',
-#     'Houston Rockets': 'HOU',
-#     'Indiana Pacers': 'IND',
-#     'Los Angeles Clippers': 'LAC',
-#     'Los Angeles Lakers': 'LAL',
-#     'Memphis Grizzlies': 'MEM',
-#     'Miami Heat': 'MIA',
-#     'Milwaukee Bucks': 'MIL',
-#     'Minnesota Timberwolves': 'MIN',
-#     'New Orleans Pelicans': 'NOP',
-#     'New York Knicks': 'NYK',
-#     'Oklahoma City Thunder': 'OKC',
-#     'Orlando Magic': 'ORL',
-#     'Philadelphia 76ers': 'PHI',
-#     'Phoenix Suns': 'PHX',
-#     'Portland Trail Blazers': 'POR',
-#     'Sacramento Kings': 'SAC',
-#     'San Antonio Spurs': 'SAS',
-#     'Toronto Raptors': 'TOR',
-#     'Utah Jazz': 'UTA',
-#     'Washington Wizards': 'WAS',
-#     'St. Louis Hawks': 'STL',
-#     'Seattle SuperSonics': 'SEA',
-#     'Washington Bullets': 'WSB',
-#     'Philadelphia Warriors': 'PHW',
-#     'Syracuse Nationals': 'SYR',
-#     'Minneapolis Lakers': 'MPL',
-#     'Rochester Royals': 'MPL'
-#     # Add more mappings if necessary
-# }
+team_abbreviations = {
+    'Atlanta Hawks': 'ATL',
+    'Boston Celtics': 'BOS',
+    'Brooklyn Nets': 'BKN',
+    'Charlotte Hornets': 'CHA',
+    'Chicago Bulls': 'CHI',
+    'Cleveland Cavaliers': 'CLE',
+    'Dallas Mavericks': 'DAL',
+    'Denver Nuggets': 'DEN',
+    'Detroit Pistons': 'DET',
+    'Golden State Warriors': 'GSW',
+    'Houston Rockets': 'HOU',
+    'Indiana Pacers': 'IND',
+    'Los Angeles Clippers': 'LAC',
+    'Los Angeles Lakers': 'LAL',
+    'Memphis Grizzlies': 'MEM',
+    'Miami Heat': 'MIA',
+    'Milwaukee Bucks': 'MIL',
+    'Minnesota Timberwolves': 'MIN',
+    'New Orleans Pelicans': 'NOP',
+    'New York Knicks': 'NYK',
+    'Oklahoma City Thunder': 'OKC',
+    'Orlando Magic': 'ORL',
+    'Philadelphia 76ers': 'PHI',
+    'Phoenix Suns': 'PHX',
+    'Portland Trail Blazers': 'POR',
+    'Sacramento Kings': 'SAC',
+    'San Antonio Spurs': 'SAS',
+    'Toronto Raptors': 'TOR',
+    'Utah Jazz': 'UTA',
+    'Washington Wizards': 'WAS',
+    'St. Louis Hawks': 'STL',
+    'Seattle SuperSonics': 'SEA',
+    'Washington Bullets': 'WSB',
+    'Philadelphia Warriors': 'PHW',
+    'Syracuse Nationals': 'SYR',
+    'Minneapolis Lakers': 'MPL',
+    'Rochester Royals': 'MPL'
+    # Add more mappings if necessary
+}
 
-# championships['Team'] = championships['Team'].replace(team_abbreviations)
+championships['Team'] = championships['Team'].replace(team_abbreviations)
 
-# #Calculate # of championships
-# all_championships = pd.merge(top_75_raw, championships, left_on=['Year', 'Tm'], right_on=['Year', 'Team'], how='left')
-# all_championships = all_championships[all_championships['Player'].isin(top_75_names)]
-# all_championships['Championships'] = all_championships['Adjusted SRS'].where(all_championships['Adjusted SRS'].isnull(), 1).fillna(0)
+#Calculate # of championships
+all_championships = pd.merge(top_75_raw, championships, left_on=['Year', 'Tm'], right_on=['Year', 'Team'], how='left')
+all_championships = all_championships[all_championships['Player'].isin(top_75_names)]
+all_championships['Championships'] = all_championships['Adjusted SRS'].where(all_championships['Adjusted SRS'].isnull(), 1).fillna(0)
 
-# all_championships = all_championships.groupby("Player").sum()
-# all_championships
+all_championships = all_championships.groupby("Player").sum()
+all_championships
 
-# #Calculate championship difficulty
-# top_75_names = ['Michael Jordan', 'LeBron James', 'Kareem Abdul-Jabbar', 'Magic Johnson', 'Wilt Chamberlain', 'Bill Russell', 'Larry Bird', 'Tim Duncan', 'Oscar Robertson', 'Kobe Bryant', "Shaquille O'Neal", 'Kevin Durant', 'Hakeem Olajuwon', 'Julius Erving', 'Moses Malone', 'Stephen Curry', 'Dirk Nowitzki', 'Giannis Antetokounmpo', 'Jerry West', 'Elgin Baylor', 'Kevin Garnett', 'Charles Barkley', 'Karl Malone', 'John Stockton', 'David Robinson', 'John Havlicek', 'Isiah Thomas', 'George Mikan', 'Chris Paul', 'Dwyane Wade', 'Allen Iverson', 'Scottie Pippen', 'Kawhi Leonard', 'Bob Cousy', 'Bob Pettit', 'Dominique Wilkins', 'Steve Nash', 'Rick Barry', 'Kevin McHale', 'Patrick Ewing', 'Walt Frazier', 'Jason Kidd', 'Bill Walton', 'Bob McAdoo', 'Jerry Lucas', 'Ray Allen', 'Wes Unseld', 'Nate Thurmond', 'James Harden', 'Reggie Miller', 'George Gervin', 'Clyde Drexler', 'Pete Maravich', 'Earl Monroe', 'James Worthy', 'Willis Reed', 'Elvin Hayes', 'Nate Archibald', 'Sam Jones', 'Dave Cowens', 'Paul Pierce', 'Robert Parish', 'Hal Greer', 'Lenny Wilkens', 'Paul Arizin', 'Dennis Rodman', 'Russell Westbrook', 'Carmelo Anthony', 'Dolph Schayes', 'Anthony Davis', 'Billy Cunningham', 'Dave DeBusschere', 'Dave Bing', 'Damian Lillard', 'Bill Sharman', 'Michael Jordan*', 'LeBron James*', 'Kareem Abdul-Jabbar*', 'Magic Johnson*', 'Wilt Chamberlain*', 'Bill Russell*', 'Larry Bird*', 'Tim Duncan*', 'Oscar Robertson*', 'Kobe Bryant*', "Shaquille O'Neal*", 'Kevin Durant*', 'Hakeem Olajuwon*', 'Julius Erving*', 'Moses Malone*', 'Stephen Curry*', 'Dirk Nowitzki*', 'Giannis Antetokounmpo*', 'Jerry West*', 'Elgin Baylor*', 'Kevin Garnett*', 'Charles Barkley*', 'Karl Malone*', 'John Stockton*', 'David Robinson*', 'John Havlicek*', 'Isiah Thomas*', 'George Mikan*', 'Chris Paul*', 'Dwyane Wade*', 'Allen Iverson*', 'Scottie Pippen*', 'Kawhi Leonard*', 'Bob Cousy*', 'Bob Pettit*', 'Dominique Wilkins*', 'Steve Nash*', 'Rick Barry*', 'Kevin McHale*', 'Patrick Ewing*', 'Walt Frazier*', 'Gary Payton*', 'Jason Kidd*', 'Bill Walton*', 'Bob McAdoo*', 'Jerry Lucas*', 'Ray Allen*', 'Wes Unseld*', 'Nate Thurmond*', 'James Harden*', 'Reggie Miller*', 'George Gervin*', 'Clyde Drexler*', 'Pete Maravich*', 'Earl Monroe*', 'James Worthy*', 'Willis Reed*', 'Elvin Hayes*', 'Nate Archibald*', 'Sam Jones*', 'Dave Cowens*', 'Paul Pierce*', 'Robert Parish*', 'Hal Greer*', 'Lenny Wilkens*', 'Paul Arizin*', 'Dennis Rodman*', 'Russell Westbrook*', 'Carmelo Anthony*', 'Dolph Schayes*', 'Anthony Davis*', 'Billy Cunningham*', 'Dave DeBusschere*', 'Dave Bing*', 'Damian Lillard*', 'Bill Sharman*']
-
-
-# championships_difficulty = pd.merge(top_75_raw, championships, left_on=['Year', 'Tm'], right_on=['Year', 'Team'], how='left')
-# championships_difficulty = championships_difficulty[["Player", "Adjusted SRS"]]
-# #championships_difficulty[championships_difficulty['Player'] == "Kareem Abdul-Jabbar*"]
-# championships_difficulty = championships_difficulty[championships_difficulty['Player'].isin(top_75_names)] 
+#Calculate championship difficulty
+top_75_names = ['Michael Jordan', 'LeBron James', 'Kareem Abdul-Jabbar', 'Magic Johnson', 'Wilt Chamberlain', 'Bill Russell', 'Larry Bird', 'Tim Duncan', 'Oscar Robertson', 'Kobe Bryant', "Shaquille O'Neal", 'Kevin Durant', 'Hakeem Olajuwon', 'Julius Erving', 'Moses Malone', 'Stephen Curry', 'Dirk Nowitzki', 'Giannis Antetokounmpo', 'Jerry West', 'Elgin Baylor', 'Kevin Garnett', 'Charles Barkley', 'Karl Malone', 'John Stockton', 'David Robinson', 'John Havlicek', 'Isiah Thomas', 'George Mikan', 'Chris Paul', 'Dwyane Wade', 'Allen Iverson', 'Scottie Pippen', 'Kawhi Leonard', 'Bob Cousy', 'Bob Pettit', 'Dominique Wilkins', 'Steve Nash', 'Rick Barry', 'Kevin McHale', 'Patrick Ewing', 'Walt Frazier', 'Jason Kidd', 'Bill Walton', 'Bob McAdoo', 'Jerry Lucas', 'Ray Allen', 'Wes Unseld', 'Nate Thurmond', 'James Harden', 'Reggie Miller', 'George Gervin', 'Clyde Drexler', 'Pete Maravich', 'Earl Monroe', 'James Worthy', 'Willis Reed', 'Elvin Hayes', 'Nate Archibald', 'Sam Jones', 'Dave Cowens', 'Paul Pierce', 'Robert Parish', 'Hal Greer', 'Lenny Wilkens', 'Paul Arizin', 'Dennis Rodman', 'Russell Westbrook', 'Carmelo Anthony', 'Dolph Schayes', 'Anthony Davis', 'Billy Cunningham', 'Dave DeBusschere', 'Dave Bing', 'Damian Lillard', 'Bill Sharman', 'Michael Jordan*', 'LeBron James*', 'Kareem Abdul-Jabbar*', 'Magic Johnson*', 'Wilt Chamberlain*', 'Bill Russell*', 'Larry Bird*', 'Tim Duncan*', 'Oscar Robertson*', 'Kobe Bryant*', "Shaquille O'Neal*", 'Kevin Durant*', 'Hakeem Olajuwon*', 'Julius Erving*', 'Moses Malone*', 'Stephen Curry*', 'Dirk Nowitzki*', 'Giannis Antetokounmpo*', 'Jerry West*', 'Elgin Baylor*', 'Kevin Garnett*', 'Charles Barkley*', 'Karl Malone*', 'John Stockton*', 'David Robinson*', 'John Havlicek*', 'Isiah Thomas*', 'George Mikan*', 'Chris Paul*', 'Dwyane Wade*', 'Allen Iverson*', 'Scottie Pippen*', 'Kawhi Leonard*', 'Bob Cousy*', 'Bob Pettit*', 'Dominique Wilkins*', 'Steve Nash*', 'Rick Barry*', 'Kevin McHale*', 'Patrick Ewing*', 'Walt Frazier*', 'Gary Payton*', 'Jason Kidd*', 'Bill Walton*', 'Bob McAdoo*', 'Jerry Lucas*', 'Ray Allen*', 'Wes Unseld*', 'Nate Thurmond*', 'James Harden*', 'Reggie Miller*', 'George Gervin*', 'Clyde Drexler*', 'Pete Maravich*', 'Earl Monroe*', 'James Worthy*', 'Willis Reed*', 'Elvin Hayes*', 'Nate Archibald*', 'Sam Jones*', 'Dave Cowens*', 'Paul Pierce*', 'Robert Parish*', 'Hal Greer*', 'Lenny Wilkens*', 'Paul Arizin*', 'Dennis Rodman*', 'Russell Westbrook*', 'Carmelo Anthony*', 'Dolph Schayes*', 'Anthony Davis*', 'Billy Cunningham*', 'Dave DeBusschere*', 'Dave Bing*', 'Damian Lillard*', 'Bill Sharman*']
 
 
-
-# championships_difficulty = championships_difficulty[championships_difficulty["Adjusted SRS"] != 'None']
-# championships_difficulty = championships_difficulty.dropna()
-
-# #championships_difficulty["Adjusted SRS"] = championships_difficulty["Adjusted SRS"].astype(int)  
-# #championships_difficulty.groupby("Player").mean().reset_index().sort_values("Adjusted SRS")
-# championships_difficulty = championships_difficulty.rename(columns={'Adjusted SRS': 'Championship Difficulty'})
-
-# championships_difficulty = championships_difficulty.groupby("Player").mean().reset_index()
-
-# championships_difficulty
-# # Find the minimum value in the 'SRS' column
-# min_SRS = championships_difficulty['Championship Difficulty'].min()
-
-# # Add the absolute value of min_value to all values in the 'SRS' column
-# championships_difficulty['new Championship Difficulty'] = championships_difficulty['Championship Difficulty'] + abs(min_SRS)
-# championships_difficulty.sort_values("new Championship Difficulty", ascending = True)
-# #championships_difficulty =championships_difficulty.dropna()
-# #championships_difficulty.groupby("Player")
-# #championships_difficulty.sort_values("Adjusted SRS")
-
-# championships["Championships"] = 1
-# all_championships
-# all_championships = pd.merge(top_75_raw, championships, left_on=['Year', 'Tm'], right_on=['Year', 'Team'], how='left')
-# all_championships = all_championships[all_championships['Player'].isin(top_75_names)]
-# #all_championships =all_championships.fillna(0)
-# #all_championships.groupby("Player").mean()
-# #all_championships.sort_values("Adjusted SRS")
-# #all_championships['Adjusted SRS'] = all_championships['Adjusted SRS'].astype(int)
-# #all_championships.groupby("Player").sum()
+championships_difficulty = pd.merge(top_75_raw, championships, left_on=['Year', 'Tm'], right_on=['Year', 'Team'], how='left')
+championships_difficulty = championships_difficulty[["Player", "Adjusted SRS"]]
+#championships_difficulty[championships_difficulty['Player'] == "Kareem Abdul-Jabbar*"]
+championships_difficulty = championships_difficulty[championships_difficulty['Player'].isin(top_75_names)] 
 
 
-# all_championships['Championships'] = all_championships['Championships'].where(all_championships['Championships'].isnull(), 1).fillna(0)
+
+championships_difficulty = championships_difficulty[championships_difficulty["Adjusted SRS"] != 'None']
+championships_difficulty = championships_difficulty.dropna()
+
+#championships_difficulty["Adjusted SRS"] = championships_difficulty["Adjusted SRS"].astype(int)  
+#championships_difficulty.groupby("Player").mean().reset_index().sort_values("Adjusted SRS")
+championships_difficulty = championships_difficulty.rename(columns={'Adjusted SRS': 'Championship Difficulty'})
+
+championships_difficulty = championships_difficulty.groupby("Player").mean().reset_index()
+
+championships_difficulty
+# Find the minimum value in the 'SRS' column
+min_SRS = championships_difficulty['Championship Difficulty'].min()
+
+# Add the absolute value of min_value to all values in the 'SRS' column
+championships_difficulty['new Championship Difficulty'] = championships_difficulty['Championship Difficulty'] + abs(min_SRS)
+championships_difficulty.sort_values("new Championship Difficulty", ascending = True)
+#championships_difficulty =championships_difficulty.dropna()
+#championships_difficulty.groupby("Player")
+#championships_difficulty.sort_values("Adjusted SRS")
+
+championships["Championships"] = 1
+all_championships
+all_championships = pd.merge(top_75_raw, championships, left_on=['Year', 'Tm'], right_on=['Year', 'Team'], how='left')
+all_championships = all_championships[all_championships['Player'].isin(top_75_names)]
+#all_championships =all_championships.fillna(0)
+#all_championships.groupby("Player").mean()
+#all_championships.sort_values("Adjusted SRS")
+#all_championships['Adjusted SRS'] = all_championships['Adjusted SRS'].astype(int)
+#all_championships.groupby("Player").sum()
 
 
-# all_championships['Championships'] = all_championships['Championships'].astype(int)
-# all_championships = all_championships.groupby("Player")[['Player', 'Championships']].sum().reset_index()
-# all_championships
-
-# awards = pd.read_csv("awards.csv")
-# MVP = awards['MVP'].value_counts().reset_index()
-# MVP.columns = ['Player', 'MVP']
-
-# DPOY = awards['DPOY'].value_counts().reset_index()
-# DPOY.columns = ['Player', 'DPOY']
+all_championships['Championships'] = all_championships['Championships'].where(all_championships['Championships'].isnull(), 1).fillna(0)
 
 
-# FMVP = awards['FMVP'].value_counts().reset_index()
-# FMVP.columns = ['Player', 'FMVP']
+all_championships['Championships'] = all_championships['Championships'].astype(int)
+all_championships = all_championships.groupby("Player")[['Player', 'Championships']].sum().reset_index()
+all_championships
+
+awards = pd.read_csv("awards.csv")
+MVP = awards['MVP'].value_counts().reset_index()
+MVP.columns = ['Player', 'MVP']
+
+DPOY = awards['DPOY'].value_counts().reset_index()
+DPOY.columns = ['Player', 'DPOY']
 
 
-# all_nba = pd.read_csv("allnbateams.csv")
+FMVP = awards['FMVP'].value_counts().reset_index()
+FMVP.columns = ['Player', 'FMVP']
 
 
-# allawards = pd.merge(MVP, DPOY, on='Player', how = 'outer')
-# allawards = pd.merge(allawards, FMVP, on='Player', how = 'outer')
-# allawards = pd.merge(allawards, all_nba, on='Player', how = 'outer')
-# allawards.fillna(0, inplace=True)
-# allawards[['MVP', 'DPOY', 'FMVP', 'All NBA Teams']] = allawards[['MVP', 'DPOY', 'FMVP', 'All NBA Teams']].astype(int)
-
-# allawards
-# # final_table = pd.merge(final_table, allawards, how = "left")
-# # final_table.sort_values("MVP")
+all_nba = pd.read_csv("allnbateams.csv")
 
 
-# final_table = pd.merge(top_75, all_championships, left_on=['Player'], right_on=['Player'], how='left')
-# final_table = pd.merge(final_table, championships_difficulty, left_on=['Player'], right_on=['Player'], how='left')
-# final_table['Championship Difficulty'] = final_table['Championship Difficulty'].fillna(final_table['Championship Difficulty'].median())
-# final_table['Player'] = final_table['Player'].str.replace('*', '', regex=True)
+allawards = pd.merge(MVP, DPOY, on='Player', how = 'outer')
+allawards = pd.merge(allawards, FMVP, on='Player', how = 'outer')
+allawards = pd.merge(allawards, all_nba, on='Player', how = 'outer')
+allawards.fillna(0, inplace=True)
+allawards[['MVP', 'DPOY', 'FMVP', 'All NBA Teams']] = allawards[['MVP', 'DPOY', 'FMVP', 'All NBA Teams']].astype(int)
 
-# final_table = pd.merge(final_table, MVP, left_on=['Player'], right_on=['Player'], how='left')
+allawards
 # final_table = pd.merge(final_table, allawards, how = "left")
-# final_table = final_table.fillna(0)
-
-# # final_table["Championship Difficulty"] = final_table["Championship Difficulty"] * final_table["Championships"]
-
-# # final_table.sort_values("Championship Difficulty", ascending = False)
-# final_table["new Championship Difficulty"] = final_table["new Championship Difficulty"] * final_table["Championships"]
-
 # final_table.sort_values("MVP")
 
-# #Calculate z-scores
 
-# # Define the columns to calculate z-scores
-# cols = ['PTS', 'AST', 'TRB', 'STL', 'BLK', 'PTS/G', 'AST/G', 'TRB/G', 'STL/G', 'BLK/G', 'Championships', 'new Championship Difficulty', 'Championship Difficulty', 'MVP', 'DPOY', 'FMVP', 'All NBA Teams']
+final_table = pd.merge(top_75, all_championships, left_on=['Player'], right_on=['Player'], how='left')
+final_table = pd.merge(final_table, championships_difficulty, left_on=['Player'], right_on=['Player'], how='left')
+final_table['Championship Difficulty'] = final_table['Championship Difficulty'].fillna(final_table['Championship Difficulty'].median())
+final_table['Player'] = final_table['Player'].str.replace('*', '', regex=True)
 
-# # Calculate the z-scores
-# final_table_z = final_table[cols].apply(zscore)
+final_table = pd.merge(final_table, MVP, left_on=['Player'], right_on=['Player'], how='left')
+final_table = pd.merge(final_table, allawards, how = "left")
+final_table = final_table.fillna(0)
 
-# # Add back the 'Player' column
-# final_table_z['Player'] = final_table['Player']
+# final_table["Championship Difficulty"] = final_table["Championship Difficulty"] * final_table["Championships"]
 
-# # Reorder the columns
-# final_table_z = final_table_z[['Player'] + cols]
+# final_table.sort_values("Championship Difficulty", ascending = False)
+final_table["new Championship Difficulty"] = final_table["new Championship Difficulty"] * final_table["Championships"]
+
+final_table.sort_values("MVP")
+
+#Calculate z-scores
+
+# Define the columns to calculate z-scores
+cols = ['PTS', 'AST', 'TRB', 'STL', 'BLK', 'PTS/G', 'AST/G', 'TRB/G', 'STL/G', 'BLK/G', 'Championships', 'new Championship Difficulty', 'Championship Difficulty', 'MVP', 'DPOY', 'FMVP', 'All NBA Teams']
+
+# Calculate the z-scores
+final_table_z = final_table[cols].apply(zscore)
+
+# Add back the 'Player' column
+final_table_z['Player'] = final_table['Player']
+
+# Reorder the columns
+final_table_z = final_table_z[['Player'] + cols]
+
+#stabilize outliers
+cols = [col for col in final_table_z.columns if col != 'Player']
+#final_table_z[cols] = final_table_z[cols].where(final_table_z[cols] <= 2.5, other=2.5)
 
 # #stabilize outliers
 # cols = [col for col in final_table_z.columns if col != 'Player']
-# #final_table_z[cols] = final_table_z[cols].where(final_table_z[cols] <= 2.5, other=2.5)
+# final_table_z[cols] = final_table_z[cols].where(final_table_z[cols] <= 2.5, other=2.5)
 
-# # #stabilize outliers
-# # cols = [col for col in final_table_z.columns if col != 'Player']
-# # final_table_z[cols] = final_table_z[cols].where(final_table_z[cols] <= 2.5, other=2.5)
+final_table_z.head(30)
 
-# final_table_z.head(30)
+import pandas as pd
 
-# import pandas as pd
+# Custom function for robust scaling
+def robust_scale(data):
+    median = data.median()
+    iqr = data.quantile(0.75) - data.quantile(0.25)
+    return (data - median) / iqr
 
-# # Custom function for robust scaling
-# def robust_scale(data):
-#     median = data.median()
-#     iqr = data.quantile(0.75) - data.quantile(0.25)
-#     return (data - median) / iqr
+# Define the columns to calculate robust scaled values
+cols = ['PTS', 'AST', 'TRB', 'STL', 'BLK', 'PTS/G', 'AST/G', 'TRB/G', 'STL/G', 'BLK/G', 'Championships', 'new Championship Difficulty', 'Championship Difficulty', 'MVP', 'DPOY', 'FMVP', 'All NBA Teams']
 
-# # Define the columns to calculate robust scaled values
-# cols = ['PTS', 'AST', 'TRB', 'STL', 'BLK', 'PTS/G', 'AST/G', 'TRB/G', 'STL/G', 'BLK/G', 'Championships', 'new Championship Difficulty', 'Championship Difficulty', 'MVP', 'DPOY', 'FMVP', 'All NBA Teams']
+# Calculate the robust scaled values
+final_table_robust = final_table[cols].apply(robust_scale)
 
-# # Calculate the robust scaled values
-# final_table_robust = final_table[cols].apply(robust_scale)
+# Add back the 'Player' column
+final_table_robust['Player'] = final_table['Player']
 
-# # Add back the 'Player' column
-# final_table_robust['Player'] = final_table['Player']
+# Reorder the columns
+final_table_robust = final_table_robust[['Player'] + cols]
 
-# # Reorder the columns
-# final_table_robust = final_table_robust[['Player'] + cols]
+# Stabilize outliers (set values above 2.5 to 2.5)
+cols = [col for col in final_table_robust.columns if col != 'Player']
+final_table_robust[cols] = final_table_robust[cols].where(final_table_robust[cols] <= 2.5, other=2.5)
 
-# # Stabilize outliers (set values above 2.5 to 2.5)
-# cols = [col for col in final_table_robust.columns if col != 'Player']
-# final_table_robust[cols] = final_table_robust[cols].where(final_table_robust[cols] <= 2.5, other=2.5)
+# Print the final_table_robust
+final_table_robust.head(50)
 
-# # Print the final_table_robust
-# final_table_robust.head(50)
-
-# final_table_z.sort_values('new Championship Difficulty', ascending = False).head(10)
+final_table_z.sort_values('new Championship Difficulty', ascending = False).head(10)
 
 
-# # Double the size of the list by duplicating every player with a "*" added to the end of their name
-# doubled_list = [name + '*' for name in top_75_names]
+# Double the size of the list by duplicating every player with a "*" added to the end of their name
+doubled_list = [name + '*' for name in top_75_names]
 
-# # Combine the original list and the doubled list
-# full_list = top_75_names + doubled_list
+# Combine the original list and the doubled list
+full_list = top_75_names + doubled_list
 
-# # example below 
+# example below 
 final_table_z = pd.read_csv("final_andy_real.csv")
 
 def rankAllTimePlayer(PTS, AST, TRB, Championships, new_Championship_Difficulty, MVP, DPOY, FMVP, All_NBA):
@@ -316,9 +316,10 @@ def rank_players():
     except Exception as e:
         return jsonify({"error": str(e)})
 
+import os 
 # Run the Flask app if executed as the main script
 if __name__ == '__main__':
-    app.run(host='http://127.0.0.1:5000/', port=5000, debug=True)
+    app.run(host='127.0.0.1', port=5000, debug=True)
 
 
        # app.run(host='0.0.0.0', port=int(os.environ['PORT']), debug=True)
