@@ -16,7 +16,7 @@ players23 = pd.read_csv("22-23.csv")
 all_time_stats =  pd.concat([players, players18, players19, players20, players21, players22,players23], axis = 0)
 all_time_stats = all_time_stats.drop('Unnamed: 0', axis = 1)
 
-#Replace null values with 0s
+#Replace null values with 0s and more cleaning
 all_time_stats.fillna(0, inplace=True)
 
 top_75_names = ['Michael Jordan', 'LeBron James', 'Kareem Abdul-Jabbar', 'Magic Johnson', 'Wilt Chamberlain', 'Bill Russell', 'Larry Bird', 'Tim Duncan', 'Oscar Robertson', 'Kobe Bryant', "Shaquille O'Neal", 'Kevin Durant', 'Hakeem Olajuwon', 'Julius Erving', 'Moses Malone', 'Stephen Curry', 'Dirk Nowitzki', 'Giannis Antetokounmpo', 'Jerry West', 'Elgin Baylor', 'Kevin Garnett', 'Charles Barkley', 'Karl Malone', 'John Stockton', 'David Robinson', 'John Havlicek', 'Isiah Thomas', 'George Mikan', 'Chris Paul', 'Dwyane Wade', 'Allen Iverson', 'Scottie Pippen', 'Kawhi Leonard', 'Bob Cousy', 'Bob Pettit', 'Dominique Wilkins', 'Steve Nash', 'Rick Barry', 'Kevin McHale', 'Patrick Ewing', 'Walt Frazier', 'Jason Kidd', 'Bill Walton', 'Bob McAdoo', 'Jerry Lucas', 'Ray Allen', 'Wes Unseld', 'Nate Thurmond', 'James Harden', 'Reggie Miller', 'George Gervin', 'Clyde Drexler', 'Pete Maravich', 'Earl Monroe', 'James Worthy', 'Willis Reed', 'Elvin Hayes', 'Nate Archibald', 'Sam Jones', 'Dave Cowens', 'Paul Pierce', 'Robert Parish', 'Hal Greer', 'Lenny Wilkens', 'Paul Arizin', 'Dennis Rodman', 'Russell Westbrook', 'Carmelo Anthony', 'Dolph Schayes', 'Anthony Davis', 'Billy Cunningham', 'Dave DeBusschere', 'Dave Bing', 'Damian Lillard', 'Bill Sharman', 'Michael Jordan*', 'LeBron James*', 'Kareem Abdul-Jabbar*', 'Magic Johnson*', 'Wilt Chamberlain*', 'Bill Russell*', 'Larry Bird*', 'Tim Duncan*', 'Oscar Robertson*', 'Kobe Bryant*', "Shaquille O'Neal*", 'Kevin Durant*', 'Hakeem Olajuwon*', 'Julius Erving*', 'Moses Malone*', 'Stephen Curry*', 'Dirk Nowitzki*', 'Giannis Antetokounmpo*', 'Jerry West*', 'Elgin Baylor*', 'Kevin Garnett*', 'Charles Barkley*', 'Karl Malone*', 'John Stockton*', 'David Robinson*', 'John Havlicek*', 'Isiah Thomas*', 'George Mikan*', 'Chris Paul*', 'Dwyane Wade*', 'Allen Iverson*', 'Scottie Pippen*', 'Kawhi Leonard*', 'Bob Cousy*', 'Bob Pettit*', 'Dominique Wilkins*', 'Steve Nash*', 'Rick Barry*', 'Kevin McHale*', 'Patrick Ewing*', 'Walt Frazier*', 'Gary Payton*', 'Jason Kidd*', 'Bill Walton*', 'Bob McAdoo*', 'Jerry Lucas*', 'Ray Allen*', 'Wes Unseld*', 'Nate Thurmond*', 'James Harden*', 'Reggie Miller*', 'George Gervin*', 'Clyde Drexler*', 'Pete Maravich*', 'Earl Monroe*', 'James Worthy*', 'Willis Reed*', 'Elvin Hayes*', 'Nate Archibald*', 'Sam Jones*', 'Dave Cowens*', 'Paul Pierce*', 'Robert Parish*', 'Hal Greer*', 'Lenny Wilkens*', 'Paul Arizin*', 'Dennis Rodman*', 'Russell Westbrook*', 'Carmelo Anthony*', 'Dolph Schayes*', 'Anthony Davis*', 'Billy Cunningham*', 'Dave DeBusschere*', 'Dave Bing*', 'Damian Lillard*', 'Bill Sharman*']
@@ -316,10 +316,8 @@ def rank_players():
     except Exception as e:
         return jsonify({"error": str(e)})
 
-# import os 
+import os 
 # # Run the Flask app if executed as the main script
-# if __name__ == '__main__':
-#     app.run(host='127.0.0.1', port=5000, debug=True)
-
-
-       # app.run(host='0.0.0.0', port=int(os.environ['PORT']), debug=True)
+if __name__ == '__main__':
+    # app.run(host='0.0.0.0', port=int(os.environ['PORT']), debug=True)
+    app.run(host='127.0.0.1', port=5000, debug=True)
